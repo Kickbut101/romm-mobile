@@ -1,8 +1,8 @@
 import * as SAF from '@joplin/react-native-saf-x';
 import RNFetchBlob from "react-native-blob-util";
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import { useCallback, useMemo, useState } from 'react';
-import { Platform } from 'react-native';
+import { Platform as RNPlatform } from 'react-native';
 import { RomFile } from '../services/api';
 import { PlatformFolder, usePlatformFolders } from './usePlatformFolders';
 
@@ -36,7 +36,7 @@ export const useRomFileSystem = () => {
 
             var fileList;
 
-            if (Platform.OS === 'android') {
+            if (RNPlatform.OS === 'android') {
                 fileList = (await SAF.listFiles(platformFolder.folderUri)).map(file => file.name);
             } else {
                 // For iOS, use expo-file-system

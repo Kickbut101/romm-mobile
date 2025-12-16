@@ -1,5 +1,5 @@
-import * as FileSystem from 'expo-file-system';
-import { Platform } from 'react-native';
+import * as FileSystem from 'expo-file-system/legacy';
+import { Platform as RNPlatform } from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import { PlatformFolder } from '../hooks/usePlatformFolders';
 import { apiClient, Rom } from './api';
@@ -230,7 +230,7 @@ class DownloadService {
         try {
             let fileUri: string;
 
-            if (Platform.OS === 'android') {
+            if (RNPlatform.OS === 'android') {
                 // Use Storage Access Framework for Android
                 fileUri = await FileSystem.StorageAccessFramework.createFileAsync(
                     download.platformFolder.folderUri,

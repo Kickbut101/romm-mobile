@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import {
     Alert,
     Modal,
-    Platform,
+    Platform as RNPlatform,
     ScrollView,
     StyleSheet,
     Switch,
@@ -395,7 +395,7 @@ export default function SettingsScreen() {
             await loadAppUpdatesEnabledSetting();
 
             // Auto-check for updates on startup (Android only)
-            if (Platform.OS === 'android') {
+            if (RNPlatform.OS === 'android') {
                 try {
                     const updatesEnabled = await AsyncStorage.getItem('appUpdatesEnabled');
                     const isEnabled = updatesEnabled !== null ? JSON.parse(updatesEnabled) : true;
@@ -437,7 +437,7 @@ export default function SettingsScreen() {
                 </View>
 
                 {/* Base Folder Section */}
-                {Platform.OS === 'android' && <View style={styles.section}>
+                {RNPlatform.OS === 'android' && <View style={styles.section}>
                     <Text style={styles.sectionTitle}>{t('baseFolder')}</Text>
                     <Text style={styles.sectionDescription}>
                         {t('baseFolderDescription')}
@@ -477,7 +477,7 @@ export default function SettingsScreen() {
                 </View>}
 
                 {/* Platform Folders Section */}
-                {Platform.OS === 'android' && <View style={styles.section}>
+                {RNPlatform.OS === 'android' && <View style={styles.section}>
                     <Text style={styles.sectionTitle}>{t('platformFolders')}</Text>
                     <Text style={styles.sectionDescription}>
                         {t('platformFoldersDescription')}
@@ -597,7 +597,7 @@ export default function SettingsScreen() {
                 </View>
 
                 {/* App Update Section */}
-                {Platform.OS === 'android' && (
+                {RNPlatform.OS === 'android' && (
                     <View style={styles.section}>
                         <Text style={styles.sectionTitle}>{t('appUpdate')}</Text>
                         <Text style={styles.sectionDescription}>

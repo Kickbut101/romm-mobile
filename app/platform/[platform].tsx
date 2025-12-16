@@ -7,9 +7,9 @@ import {
     Alert,
     FlatList,
     Image,
-    Platform,
     Pressable,
     RefreshControl,
+    Platform as RNPlatform,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -21,7 +21,6 @@ import { useDynamicColumns } from '../../hooks/useDynamicColumns';
 import { usePlatformFolders } from '../../hooks/usePlatformFolders';
 import { useRomFileSystem } from '../../hooks/useRomFileSystem';
 import { usePlatform, useRoms } from '../../hooks/useRoms';
-import { useStorageAccessFramework } from '../../hooks/useStorageAccessFramework';
 import { useTranslation } from '../../hooks/useTranslation';
 import { Rom } from '../../services/api';
 
@@ -143,7 +142,7 @@ export default function PlatformScreen() {
         }
 
         // Filter out ROMs that are already being downloaded or already exist on filesystem
-        const romsToDownload = roms.filter(rom => !isRomDownloading(rom.files[0]) && !isRomDownloaded(rom.files[0]));
+        const romsToDownload = roms.filter(rom => !isRomDownloading(rom.files[0])); // && !isRomDownloaded(rom.files[0]));
 
         if (romsToDownload.length === 0) {
             showInfoToast(t('allRomsDownloaded'), t('info'));
@@ -318,7 +317,7 @@ export default function PlatformScreen() {
     }
 
     // Calculate available ROMs to download
-    const availableToDownload = roms.filter(rom => !isRomDownloading(rom.files[0]) && !isRomDownloaded(rom.files[0])).length;
+    const availableToDownload = roms.filter(rom => !isRomDownloading(rom.files[0])).length; // && !isRomDownloaded(rom.files[0])).length;
 
     // Prepare data for FlatList with empty items to fill last row
     const prepareGridData = (data: Rom[]) => {
@@ -369,7 +368,7 @@ export default function PlatformScreen() {
                         </Text>
                     </View>
                     <View style={styles.headerButtons}>
-                        {Platform.OS === 'android' && <TouchableOpacity
+                        {RNPlatform.OS === 'android' && <TouchableOpacity
                             style={styles.folderButton}
                             onPress={() => requestPlatformFolder(currentPlatform, true)}
                         >

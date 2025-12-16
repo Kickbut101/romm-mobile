@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import { useEffect, useState } from 'react';
-import { Platform } from 'react-native';
+import { Platform as RNPlatform } from 'react-native';
 import { useStorageAccessFramework } from './useStorageAccessFramework';
 
 
@@ -69,7 +69,7 @@ export const useRomsFolder = () => {
         }
 
         try {
-            if (Platform.OS === 'android') {
+            if (RNPlatform.OS === 'android') {
                 return await readDirectoryContents(romsFolderUri);
             } else {
                 // For iOS, use expo-file-system

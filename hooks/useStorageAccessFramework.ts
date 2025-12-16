@@ -1,6 +1,6 @@
 import { openDocumentTree } from "@joplin/react-native-saf-x";
-import * as FileSystem from 'expo-file-system';
-import { Platform } from 'react-native';
+import * as FileSystem from 'expo-file-system/legacy';
+import { Platform as RNPlatform } from 'react-native';
 import { useTranslation } from './useTranslation';
 
 
@@ -13,7 +13,7 @@ export const useStorageAccessFramework = () => {
 
     // Function to check if SAF is available on this platform
     const isSafAvailable = (): boolean => {
-        return Platform.OS === 'android'; // Only Android supports SAF
+        return RNPlatform.OS === 'android'; // Only Android supports SAF
     };
 
     // Function to request directory permissions using SAF
@@ -60,7 +60,7 @@ export const useStorageAccessFramework = () => {
     // Function to read the contents of a directory
     const readDirectoryContents = async (folderUri: string): Promise<string[]> => {
         try {
-            if (Platform.OS === 'android') {
+            if (RNPlatform.OS === 'android') {
                 return await FileSystem.StorageAccessFramework.readDirectoryAsync(folderUri);
             } else {
                 // For iOS, use expo-file-system
@@ -76,7 +76,7 @@ export const useStorageAccessFramework = () => {
     // Function to check if we still have permissions for a folder
     const checkDirectoryPermissions = async (folderUri: string): Promise<boolean> => {
         try {
-            if (Platform.OS === 'android') {
+            if (RNPlatform.OS === 'android') {
                 await FileSystem.StorageAccessFramework.readDirectoryAsync(folderUri);
             } else {
                 // For iOS, use expo-file-system to check if directory exists and is accessible

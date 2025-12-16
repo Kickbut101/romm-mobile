@@ -1,13 +1,13 @@
-import * as FileSystem from 'expo-file-system';
-import { openDocumentTree, mkdir, createFile, moveFile, unlink, stat, listFiles, exists } from "@joplin/react-native-saf-x";
-import { unzip, subscribe } from 'react-native-zip-archive';
+import { moveFile, stat, unlink } from "@joplin/react-native-saf-x";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as FileSystem from 'expo-file-system/legacy';
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { Platform as RNPlatform } from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
+import { subscribe, unzip } from 'react-native-zip-archive';
 import { PlatformFolder } from '../hooks/usePlatformFolders';
 import { useRomFileSystem } from '../hooks/useRomFileSystem';
 import { apiClient, Rom, RomFile } from '../services/api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform } from 'react-native';
 
 // Define the types here to avoid import issues
 export enum DownloadStatus {
@@ -280,7 +280,7 @@ export const DownloadProvider: React.FC<DownloadProviderProps> = ({ children }) 
                 })
 
                 // Here we use different methods based on platform
-                if (Platform.OS === 'android') {
+                if (RNPlatform.OS === 'android') {
                     const unzipedFile = await unzip(tempFilePath, unzipPath);
                     console.log(`Unzipped to: ${unzipedFile}`);
 
@@ -334,7 +334,7 @@ export const DownloadProvider: React.FC<DownloadProviderProps> = ({ children }) 
                 try {
                     const sourcePath = download.platformFolder.folderUri + '/' + download.romFile.file_name;
                     
-                    if(Platform.OS === 'android') {
+                    if(RNPlatform.OS === 'android') {
                         const fileStatus = await stat(tempFilePath);
                         await updateDownloadProgress(sourcePath, fileStatus.size);
                         await moveFile(tempFilePath, sourcePath, { replaceIfDestinationExists: true });

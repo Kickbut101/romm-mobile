@@ -168,7 +168,7 @@ export default function CollectionScreen({ }: CollectionScreenProps) {
         }
 
         // Filter out ROMs that are already being downloaded or already exist on filesystem
-        const romsToDownload = roms.filter(rom => !isRomDownloading(rom.files[0]) && !isRomDownloaded(rom.files[0]));
+        const romsToDownload = roms.filter(rom => !isRomDownloading(rom.files[0])); //&& !isRomDownloaded(rom.files[0]));
 
         if (romsToDownload.length === 0) {
             showInfoToast(t('allRomsDownloaded'), t('info'));

@@ -1,12 +1,9 @@
-import * as FileSystem from 'expo-file-system';
 import { useCallback } from 'react';
-import { Alert } from 'react-native';
 import { useDownload } from '../contexts/DownloadContext';
-import { Rom, RomFile, RomSibling } from '../services/api';
+import { Platform, Rom, RomFile } from '../services/api';
 import { usePlatformFolders } from './usePlatformFolders';
 import { useRomFileSystem } from './useRomFileSystem';
 import { useTranslation } from './useTranslation';
-import { Platform, apiClient } from '../services/api';
 
 export interface RomDownloadError extends Error {
     type: 'already_downloaded' | 'no_folder' | 'folder_selection_failed' | 'download_failed';

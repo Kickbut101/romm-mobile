@@ -1,6 +1,7 @@
 import { useRomDownload } from '@/hooks/useRomDownload';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as FileSystem from 'expo-file-system/legacy';
 import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
@@ -9,13 +10,13 @@ import {
     Dimensions,
     FlatList,
     Image,
-    Platform,
     RefreshControl,
+    Platform as RNPlatform,
     ScrollView,
     StyleSheet,
     Text,
     TouchableOpacity,
-    View,
+    View
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BaseFolderModal } from '../components/BaseFolderModal';
@@ -33,7 +34,6 @@ import { useStorageAccessFramework } from '../hooks/useStorageAccessFramework';
 import { useTranslation } from '../hooks/useTranslation';
 import { apiClient, Platform as ApiPlatform, Collection, CollectionType, Rom } from '../services/api';
 import { updateService } from '../services/updateService';
-import * as FileSystem from 'expo-file-system';
 
 const { width } = Dimensions.get('window');
 
@@ -120,7 +120,7 @@ export default function LibraryScreen() {
                 try {
                     const canAccessBase = await canAccessBaseFolder();
                     if (!canAccessBase) {
-                        if(Platform.OS === 'android') {
+                        if(RNPlatform.OS === 'android') {
                             setShowBaseFolderModal(true);
                         }
                         else {
@@ -363,7 +363,7 @@ export default function LibraryScreen() {
 
     // Function to check for app updates (Android only)
     const checkForAppUpdates = async () => {
-        if (Platform.OS !== 'android') return;
+        if (RNPlatform.OS !== 'android') return;
 
         try {
             // Check if app updates are enabled

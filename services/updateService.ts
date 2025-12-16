@@ -1,7 +1,7 @@
-import * as FileSystem from 'expo-file-system';
+import * as Application from 'expo-application';
+import * as FileSystem from 'expo-file-system/legacy';
 import * as IntentLauncher from 'expo-intent-launcher';
-import { Platform } from 'react-native';
-import * as Application from 'expo-application'; 
+import { Platform as RNPlatform } from 'react-native';
 
 
 const GITHUB_API_URL = 'https://api.github.com/repos/mattsays/romm-mobile/releases/latest';
@@ -43,7 +43,7 @@ class UpdateService {
         asset: Asset,
         onProgress: (progress: number) => void
     ): Promise<void> {
-        if (Platform.OS !== 'android') {
+        if (RNPlatform.OS !== 'android') {
             throw new Error('Updates are only supported on Android.');
         }
 

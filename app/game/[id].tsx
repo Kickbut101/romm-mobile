@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as SAF from '@joplin/react-native-saf-x';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import {

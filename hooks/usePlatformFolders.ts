@@ -4,10 +4,9 @@ import * as SAF from '@joplin/react-native-saf-x';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useState } from 'react';
 import { useStorageAccessFramework } from './useStorageAccessFramework';
-import * as Application from 'expo-application';
 
 import { Platform } from '@/services/api';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import {
     Alert,
     Platform as RNPlatform,
