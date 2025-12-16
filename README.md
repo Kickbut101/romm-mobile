@@ -1,3 +1,17 @@
+Note to self:
+Can build with
+(in the romm-mobile directory/repo)
+```
+eas build -p android --profile preview --local
+```
+or
+(in the romm-mobile/android directory)
+```
+npx expo prebuild
+cd android
+./gradlew assembleRelease
+```
+
 # RomM Mobile
 
 <div align="center">
